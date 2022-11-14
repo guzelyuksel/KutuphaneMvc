@@ -1,8 +1,77 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using KutuphaneMvc.ViewModels;
+@{
+    ViewData["Title"] = "Kütüphane Ana Sayfa";
 }
+@model ToplamBilgiVM
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid">
+    <section>
+        <div class="row">
+            <div class="col-12 mt-3 mb-1">
+                <h2 class="text-uppercase text-center">Kütüphane Otomasyonu</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between px-md-1">
+                            <div class="align-self-center">
+                                <i class="fas fa-book text-info fa-3x"></i>
+                            </div>
+                            <div class="text-end">
+                                <h3>@Model.ToplamKitap</h3>
+                                <p class="mb-0">Toplam Kitap</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between px-md-1">
+                            <div class="align-self-center">
+                                <i class="far fa-pen-to-square text-warning fa-3x"></i>
+                            </div>
+                            <div class="text-end">
+                                <h3>@Model.ToplamYazar</h3>
+                                <p class="mb-0">Toplam Yazar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between px-md-1">
+                            <div class="align-self-center">
+                                <i class="fas fa-bullhorn text-success fa-3x"></i>
+                            </div>
+                            <div class="text-end">
+                                <h3>@Model.ToplamYayinEvi</h3>
+                                <p class="mb-0">Toplam Yayın Evi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between px-md-1">
+                            <div class="align-self-center">
+                                <i class="fas fa-folder-open text-danger fa-3x"></i>
+                            </div>
+                            <div class="text-end">
+                                <h3>@Model.ToplamTur</h3>
+                                <p class="mb-0">Toplam Kitap Türü</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>

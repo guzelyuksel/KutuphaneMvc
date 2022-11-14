@@ -12,6 +12,10 @@ namespace KutuphaneMvc.Repositories
             _context = context;
         }
 
+        public List<Tur> GetAll() => _context.Tur.ToList();
+
+        public Tur? GetById(Guid id) => _context.Tur.Find(id);
+
         public bool Insert(Tur tur)
         {
             try

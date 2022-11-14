@@ -7,23 +7,21 @@ namespace KutuphaneMvc.Controllers
 {
     public class TurController : Controller
     {
-        private readonly ApplicationDbContext _dbContext;
         private readonly TurRepository _turRepository;
 
         public TurController(ApplicationDbContext dbContext)
         {
-            _dbContext = dbContext;
             _turRepository = new TurRepository(dbContext);
         }
 
         public IActionResult Index()
         {
-            return View(_dbContext.Tur.ToList());
+            return View(_turRepository.GetAll());
         }
 
         public IActionResult Duzenle(Guid id)
         {
-            var turBul = _dbContext.Tur.Find(id);
+            var turBul = _turRepository.GetById(id);
             if (turBul == null) return NotFound();
             return View(turBul);
         }
@@ -31,13 +29,10 @@ namespace KutuphaneMvc.Controllers
         [HttpPost]
         public IActionResult Duzenle(Tur tur)
         {
-            if (ModelState.IsValid)
-            {
-                if (_turRepository.Update(tur))
-                    return RedirectToAction("Index");
-                return View(tur);
-            }
-            return View(tur);
+            if (!ModelState.IsValid) return View(tur);
+            if (!_turRepository.Update(tur)) return View(tur);
+            return RedirectToAction("Index");
+
         }
 
         public IActionResult Sil(Guid id)
@@ -54,18 +49,15 @@ namespace KutuphaneMvc.Controllers
         [HttpPost]
         public IActionResult Ekle(Tur tur)
         {
-            if (ModelState.IsValid)
-            {
-                if (_turRepository.Insert(tur))
-                    return RedirectToAction("Index");
-                return View(tur);
-            }
-            return View(tur);
+            if (!ModelState.IsValid) return View(tur);
+            if (!_turRepository.Insert(tur)) return View(tur);
+            return RedirectToAction("Index");
+
         }
 
         public IActionResult Detaylar(Guid id)
         {
-            var turBul = _dbContext.Tur.Find(id);
+            var turBul = _turRepository.GetById(id);
             if (turBul == null) return NotFound();
             return View(turBul);
         }

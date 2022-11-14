@@ -31,6 +31,7 @@ namespace KutuphaneMvc.DataAccess
                     yazarlar = testYazar.Generate(10);
                     context.Yazar.AddRange(yazarlar);
                     context.SaveChanges();
+                    if (!yazarlar.Any()) yazarlar = context.Yazar.ToList();
                 }
                 if (!context.Tur.Any())
                 {
@@ -72,6 +73,7 @@ namespace KutuphaneMvc.DataAccess
                     };
                     context.Tur.AddRange(turler);
                     context.SaveChanges();
+                    if (!turler.Any()) turler = context.Tur.ToList();
                 }
                 if (!context.YayinEvi.Any())
                 {
@@ -80,16 +82,15 @@ namespace KutuphaneMvc.DataAccess
                         .RuleFor(o => o.KurulusYili, f => f.Date.PastOffset(60, DateTime.Now.AddYears(-18)).Date)
                         .RuleFor(o => o.Adres, f => f.Address.FullAddress())
                         .RuleFor(o => o.Telefon, f => f.Phone.PhoneNumber("###########"))
-                        .RuleFor(o => o.Mail, f => f.Internet.ExampleEmail());
+                        .RuleFor(o => o.Mail, f => f.Internet.ExampleEmail())
+                        .RuleFor(o => o.Yazarlar, f => f.PickRandom(yazarlar, f.Random.Number(1, 3)).ToList());
                     yayinEvleri = testYayinEvi.Generate(5);
                     context.YayinEvi.AddRange(yayinEvleri);
                     context.SaveChanges();
+                    if (!yayinEvleri.Any()) yayinEvleri = context.YayinEvi.ToList();
                 }
                 if (!context.Kitap.Any())
                 {
-                    if (!yayinEvleri.Any()) yayinEvleri = context.YayinEvi.ToList();
-                    if (!turler.Any()) turler = context.Tur.ToList();
-                    if (!yazarlar.Any()) yazarlar = context.Yazar.ToList();
                     var testKitap = new Faker<Kitap>("tr")
                         .RuleFor(o => o.Isbn, f => f.Commerce.Ean13())
                         .RuleFor(o => o.Ad, f => f.Commerce.ProductName())
@@ -97,7 +98,6 @@ namespace KutuphaneMvc.DataAccess
                         .RuleFor(o => o.BasimSayisi, f => f.Random.Number(1, 10))
                         .RuleFor(o => o.SayfaSayisi, f => f.Random.Number(50, 300))
                         .RuleFor(o => o.YayinEviId, f => f.PickRandom(yayinEvleri).Id)
-                        .RuleFor(o => o.YayinEvi, (f, o) => o.YayinEvi)
                         .RuleFor(o => o.Turler, f => f.PickRandom(turler, 2).ToList())
                         .RuleFor(o => o.Yazarlar, f => f.PickRandom(yazarlar, f.Random.Number(1, 3)).ToList());
                     kitaplar = testKitap.Generate(20);

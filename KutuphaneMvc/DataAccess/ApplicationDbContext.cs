@@ -65,6 +65,8 @@ namespace KutuphaneMvc.DataAccess
             modelBuilder.Entity<YayinEvi>()
                 .Property(x => x.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<YayinEvi>()
+                .Property(x => x.Ad).IsRequired().HasMaxLength(50);
+            modelBuilder.Entity<YayinEvi>()
                 .Property(x => x.KurulusYili).IsRequired();
             modelBuilder.Entity<YayinEvi>()
                 .Property(x => x.Adres).IsRequired().HasMaxLength(100);

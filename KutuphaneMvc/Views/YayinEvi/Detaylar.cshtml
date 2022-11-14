@@ -1,8 +1,8 @@
-﻿@model KutuphaneMvc.Classes.Tur
+﻿@model KutuphaneMvc.Classes.YayinEvi
 @{
-    ViewData["Title"] = "Tür Detayları";
+    ViewData["Title"] = "Yayın Evi Detayları";
 }
-<h1>Tür Detayları</h1>
+<h1>Yayın Evi Detayları</h1>
 <div>
     <hr />
     <div class="text-center text-uppercase align-items-center text-white p-3 my-3 bg-secondary rounded shadow-sm">
@@ -18,6 +18,15 @@
                     <small>Henüz kitap yok</small>
                 }
             }
+        </div>
+        <div class="lh-1">
+            <small><b>Kuruluş tarihi:</b> @Model.KurulusYili.ToString("D")</small>
+            <br />
+            <small><b>Adres:</b> @Model.Adres</small>
+            <br />
+            <small><b>Telefon:</b> @Model.Telefon</small>
+            <br />
+            <small><b>Mail:</b> @Model.Mail</small>
         </div>
     </div>
     @{
@@ -40,6 +49,34 @@
                             <p class="ms-2">@kitap.SayfaSayisi sayfa</p>
                             <p class="ms-2">Basım Yılı: @kitap.BasimYili.ToString("D")</p>
                             <p class="ms-2">Baskı Sayısı: @kitap.BasimSayisi</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    }
+    @{
+        if (Model.Yazarlar != null)
+        {
+            <div class="my-3 p-3 bg-white rounded shadow-sm">
+                <h6 class="border-bottom pb-2 mb-0">Yazarlar</h6>
+                @foreach (var yazar in Model.Yazarlar)
+                {
+                    <div class="d-flex text-muted pt-3">
+                        <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="64" height="64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="@yazar.AdSoyad" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>@yazar.AdSoyad</title>
+                            <rect width="100%" height="100%" fill="#007bff"></rect>
+                        </svg>
+                        <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+                            <div class="d-flex justify-content-between">
+                                <strong class="text-gray-dark h4">@yazar.AdSoyad</strong>
+                                <a asp-controller="Yazar" asp-action="Detaylar" asp-route-id="@yazar.Id">Detaylar</a>
+                            </div>
+                            <p class="d-block">
+                            <p class="ms-2">@yazar.Adres</p>
+                            <p class="ms-2">@yazar.Telefon</p>
+                            <p class="ms-2">@yazar.Mail</p>
+                            </p>
                         </div>
                     </div>
                 }

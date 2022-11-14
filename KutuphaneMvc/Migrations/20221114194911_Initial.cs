@@ -28,7 +28,7 @@ namespace KutuphaneMvc.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Ad = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Ad = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     KurulusYili = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Adres = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Telefon = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
@@ -48,7 +48,7 @@ namespace KutuphaneMvc.Migrations
                     BasimYili = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BasimSayisi = table.Column<int>(type: "int", nullable: false),
                     SayfaSayisi = table.Column<int>(type: "int", nullable: false),
-                    YayinEviId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    YayinEviId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KutuphaneMvc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221114130555_Initial")]
+    [Migration("20221114194911_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -78,7 +78,7 @@ namespace KutuphaneMvc.Migrations
                     b.Property<int>("SayfaSayisi")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("YayinEviId")
+                    b.Property<Guid?>("YayinEviId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Isbn");
@@ -112,7 +112,8 @@ namespace KutuphaneMvc.Migrations
 
                     b.Property<string>("Ad")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Adres")
                         .IsRequired()
@@ -219,8 +220,7 @@ namespace KutuphaneMvc.Migrations
                     b.HasOne("KutuphaneMvc.Classes.YayinEvi", "YayinEvi")
                         .WithMany("Kitaplar")
                         .HasForeignKey("YayinEviId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("YayinEvi");
                 });

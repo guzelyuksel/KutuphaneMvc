@@ -15,7 +15,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Ad)
             </th>
-            <th>İşlemler</th>
+            <th class="text-end">İşlemler</th>
         </tr>
     </thead>
     <tbody>
@@ -25,7 +25,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Ad)
                 </td>
-                <td>
+                <td class="text-end">
                     <a class="btn btn-primary" asp-action="Duzenle" asp-route-id="@item.Id">Düzenle</a>
                     <a class="btn btn-info" asp-action="Detaylar" asp-route-id="@item.Id">Detaylar</a>
                     <a class="btn btn-danger" asp-action="Sil" asp-route-id="@item.Id">Sil</a>
