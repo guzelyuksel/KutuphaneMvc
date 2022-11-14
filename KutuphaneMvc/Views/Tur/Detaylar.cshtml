@@ -1,0 +1,39 @@
+﻿@model KutuphaneMvc.Classes.Tur
+
+@{
+    ViewData["Title"] = "Tür Detayları";
+}
+
+<h1>Tür Detayları</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ad)
+        </dt>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Kitaplar)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ad)
+        </dd>
+        <dd class="col-sm-10">
+            @{
+                if (Model.Kitaplar != null)
+                {
+                    <div class="list-group">
+                        @foreach (var item in Model.Kitaplar)
+                        {
+                            <a asp-controller="Kitap" asp-action="Duzenle" asp-route-id="@item.Isbn" class="list-group-item list-group-item-action">@item.Ad</a>
+                        }
+                    </div>
+                }
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Duzenle" asp-route-id="@Model?.Id">Düzenle</a> |
+    <a asp-action="Index">Listeye Geri Dön</a>
+</div>
