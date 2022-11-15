@@ -1,4 +1,5 @@
-﻿@model KitapViewModel
+﻿@using KutuphaneMvc.Classes;
+@model KitapViewModel
 
 @{
     ViewData["Title"] = "Yeni Kitap Ekle";
@@ -12,37 +13,73 @@
         <form asp-action="Ekle">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Kitap.Isbn" class="control-label"></label>
+                <label asp-for="Kitap.Isbn" class="form-label"></label>
                 <input asp-for="Kitap.Isbn" class="form-control" />
                 <span asp-validation-for="Kitap.Isbn" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Kitap.Ad" class="control-label"></label>
+                <label asp-for="Kitap.Ad" class="form-label"></label>
                 <input asp-for="Kitap.Ad" class="form-control" />
                 <span asp-validation-for="Kitap.Ad" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Kitap.BasimYili" class="control-label"></label>
+                <label asp-for="Kitap.BasimYili" class="form-label"></label>
                 <input asp-for="Kitap.BasimYili" class="form-control" />
                 <span asp-validation-for="Kitap.BasimYili" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Kitap.BasimSayisi" class="control-label"></label>
+                <label asp-for="Kitap.BasimSayisi" class="form-label"></label>
                 <input asp-for="Kitap.BasimSayisi" class="form-control" />
                 <span asp-validation-for="Kitap.BasimSayisi" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Kitap.SayfaSayisi" class="control-label"></label>
+                <label asp-for="Kitap.SayfaSayisi" class="form-label"></label>
                 <input asp-for="Kitap.SayfaSayisi" class="form-control" />
                 <span asp-validation-for="Kitap.SayfaSayisi" class="text-danger"></span>
             </div>
-            <div class="form-group">
-
+            @* <div class="form-group">
+            <label asp-for="Yazarlar" class="form-label"></label>
+            @Html.DropDownListFor(m => m.Yazarlar, new MultiSelectList(Model.Yazarlar, "Value", "Text"), new { @class = "form-control", multiple = "multiple" })
+            <span asp-validation-for="Yazarlar" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="YayinEviId" class="control-label"></label>
-                <select asp-for="YayinEviId" class ="form-control" asp-items="ViewBag.YayinEviId"></select>
+            <div class="form-group">
+            <label asp-for="@Model.Turler" class="form-label"></label>
+            @Html.DropDownListFor(m => m.Turler, new MultiSelectList(Model.Turler, "Value", "Text"), new { @class = "form-control", multiple = "multiple" })
+            <span asp-validation-for="@Model.Turler" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+            <label asp-for="@Model.YayinEvleri" class="form-label"></label>
+            @Html.DropDownListFor(m => m.YayinEvleri, new SelectList(Model.YayinEvleri, "Value", "Text"), new { @class = "form-control" })
+            <span asp-validation-for="@Model.YayinEvleri" class="text-danger"></span>
             </div>*@
+            <div class="form-group">
+                <label asp-for="@Model.Yazarlar" class="form-label"></label>
+                <select asp-for="Kitap.Yazarlar" class="form-control" multiple>
+                    @foreach (var item in Model.Yazarlar)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Turler" class="form-label"></label>
+                <select asp-for="Kitap.Turler" class="form-control" multiple>
+                    @foreach (var item in Model.Turler)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.YayinEvleri" class="form-label"></label>
+                <select asp-for="Kitap.YayinEviId" class="form-control">
+                    <option value="">Yayın Evi Seçiniz</option>
+                    @foreach (var item in Model.YayinEvleri)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                </select>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Ekle" class="btn btn-primary" />
             </div>
@@ -55,5 +92,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

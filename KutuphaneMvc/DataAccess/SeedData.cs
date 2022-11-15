@@ -17,7 +17,6 @@ namespace KutuphaneMvc.DataAccess
                 List<Tur> turler = new();
                 List<YayinEvi> yayinEvleri = new();
                 List<Kitap> kitaplar = new();
-                context.Database.Migrate();
                 if (!context.Yazar.Any())
                 {
                     var testYazar = new Faker<Yazar>("tr")

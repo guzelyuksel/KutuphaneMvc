@@ -3,6 +3,7 @@ using KutuphaneMvc.DataAccess;
 using KutuphaneMvc.Models;
 using KutuphaneMvc.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace KutuphaneMvc.Controllers
 {
@@ -31,11 +32,38 @@ namespace KutuphaneMvc.Controllers
 
         public IActionResult Ekle()
         {
-            KitapViewModel kitapVM = new KitapViewModel
+            //ViewBag.Turler = _dbContext.Tur.Select(x => new SelectListItem
+            //{
+            //    Text = x.Ad,
+            //    Value = x.Id.ToString()
+            //}).ToList();
+            //ViewBag.Yazarlar = _dbContext.Yazar.Select(x => new SelectListItem
+            //{
+            //    Text = x.AdSoyad,
+            //    Value = x.Id.ToString()
+            //}).ToList();
+            //ViewBag.YayinEvleri = _dbContext.YayinEvi.Select(x => new SelectListItem
+            //{
+            //    Text = x.Ad,
+            //    Value = x.Id.ToString()
+            //}).ToList();
+            KitapViewModel kitapVM = new()
             {
-                Yazarlar = _dbContext.Yazar.ToList(),
-                Turler = _dbContext.Tur.ToList(),
-                YayinEvleri = _dbContext.YayinEvi.ToList()
+                Turler = _dbContext.Tur.Select(x => new SelectListItem
+                {
+                    Text = x.Ad,
+                    Value = x.Id.ToString()
+                }).ToList(),
+                Yazarlar = _dbContext.Yazar.Select(x => new SelectListItem
+                {
+                    Text = x.AdSoyad,
+                    Value = x.Id.ToString()
+                }).ToList(),
+                YayinEvleri = _dbContext.YayinEvi.Select(x => new SelectListItem
+                {
+                    Text = x.Ad,
+                    Value = x.Id.ToString()
+                }).ToList()
             };
             return View(kitapVM);
         }
@@ -43,18 +71,45 @@ namespace KutuphaneMvc.Controllers
         [HttpPost]
         public IActionResult Ekle(KitapViewModel kitapVM)
         {
-            if (!ModelState.IsValid) return View(kitapVM);
-            if(!_kitapRepository.Insert(kitapVM)) return View(kitapVM);
+            if (!ModelState.IsValid)
+            {
+                kitapVM = new()
+                {
+                    Turler = _dbContext.Tur.Select(x => new SelectListItem
+                    {
+                        Text = x.Ad,
+                        Value = x.Id.ToString()
+                    }).ToList(),
+                    Yazarlar = _dbContext.Yazar.Select(x => new SelectListItem
+                    {
+                        Text = x.AdSoyad,
+                        Value = x.Id.ToString()
+                    }).ToList(),
+                    YayinEvleri = _dbContext.YayinEvi.Select(x => new SelectListItem
+                    {
+                        Text = x.Ad,
+                        Value = x.Id.ToString()
+                    }).ToList()
+                };
+                return View(kitapVM);
+            }
+            if (!_kitapRepository.Insert(kitapVM.Kitap)) return View(kitapVM);
             return RedirectToAction(nameof(Index));
             //if (!_kitapRepository.Insert(kitap)) return View(kitap);
             //return RedirectToAction(nameof(Index));
         }
 
         //[HttpPost]
-        //public IActionResult Ekle(Kitap kitap)
+        //public IActionResult Ekle(Kitap kitap, Guid[] turGuids, Guid[] yazarGuids, Guid yayinEviGuid)
         //{
         //    if (!ModelState.IsValid) return View(kitap);
-        //    if (!_kitapRepository.Insert(kitap)) return View(kitap);
+        //    //if (turGuids == null || yazarGuids == null || yayinEviGuid == Guid.Empty)
+        //    if(turGuids.Count() == 0)
+        //    {
+        //        ModelState.AddModelError(nameof(kitap.Turler), "Tür kısmı boş geçilemez !");
+        //        return View(kitap);
+        //    }
+        //    if (!_kitapRepository.Insert(kitap, turGuids, yazarGuids, yayinEviGuid)) return View(kitap);
         //    return RedirectToAction(nameof(Index));
         //}
 

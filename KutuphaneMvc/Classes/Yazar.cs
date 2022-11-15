@@ -23,10 +23,7 @@ namespace KutuphaneMvc.Classes
         [MaxLength(40)]
         public string Mail { get; set; }
 
-        public virtual List<Kitap>? Kitaplar { get; set; }
-
-
-
+        public virtual List<Kitap>? Kitaplar { get; set; } = new List<Kitap>();
 
     }
 }

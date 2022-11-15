@@ -21,8 +21,12 @@ namespace KutuphaneMvc.Classes
         [Range(1, Int16.MaxValue)]
         public int SayfaSayisi { get; set; }
 
-        public virtual List<Yazar>? Yazarlar { get; set; }
-        public virtual List<Tur>? Turler { get; set; }
+        [Display(Name = "Yazarlar")]
+        public virtual List<Yazar>? Yazarlar { get; set; } = new List<Yazar>();
+        [Display(Name = "Türler")]
+        public virtual List<Tur>? Turler { get; set; } = new List<Tur>();
+        
+        [Display(Name = "Yayın Evi")]
         public Guid? YayinEviId { get; set; }
         public virtual YayinEvi? YayinEvi { get; set; }
     }

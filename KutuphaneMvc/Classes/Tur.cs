@@ -9,6 +9,6 @@ namespace KutuphaneMvc.Classes
         [MaxLength(50)]
         public string Ad { get; set; }
 
-        public virtual List<Kitap>? Kitaplar { get; set; }
+        public virtual List<Kitap>? Kitaplar { get; set; } = new List<Kitap>();
     }
 }

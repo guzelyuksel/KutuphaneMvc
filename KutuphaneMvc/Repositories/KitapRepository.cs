@@ -1,6 +1,5 @@
 ﻿using KutuphaneMvc.Classes;
 using KutuphaneMvc.DataAccess;
-using KutuphaneMvc.Models;
 
 namespace KutuphaneMvc.Repositories
 {
@@ -32,18 +31,32 @@ namespace KutuphaneMvc.Repositories
             }
         }
 
-        public bool Insert(KitapViewModel kitapVM)
-        {
-            try
-            {
-
-                return _dbContext.SaveChanges() > 0;
-            }
-            catch
-            {
-                return false;
-            }
-        }
+        //public bool Insert(Kitap kitap, Guid[] turGuids, Guid[] yazarGuids, Guid yayinEviGuid)
+        //{
+        //    try
+        //    {
+        //        foreach (var tur in turGuids)
+        //        {
+        //            var turBul = _dbContext.Tur.Find(tur);
+        //            if (turBul == null) return false;
+        //            kitap.Turler.Add(turBul);
+        //        }
+        //        foreach (var yazar in yazarGuids)
+        //        {
+        //            var yazarBul = _dbContext.Yazar.Find(yazar);
+        //            if (yazarBul == null) return false;
+        //            kitap.Yazarlar.Add(yazarBul);
+        //        }
+        //        var yayinEviBul = _dbContext.YayinEvi.Find(yayinEviGuid);
+        //        if (yayinEviBul == null) return false;
+        //        kitap.YayinEvi = yayinEviBul;
+        //        return Insert(kitap);
+        //    }
+        //    catch
+        //    {
+        //        return false;
+        //    }
+        //}
 
         public bool Update(Kitap kitap)
         {
@@ -72,7 +85,6 @@ namespace KutuphaneMvc.Repositories
                 return false;
             }
         }
-
 
     }
 }
