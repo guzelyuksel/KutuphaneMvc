@@ -1,0 +1,76 @@
+﻿@using KutuphaneMvc.Classes;
+@model Yazar
+
+@{
+    ViewData["Title"] = "Yazar Düzenle";
+}
+
+<h1>Yazar Düzenle</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6 pb-3">
+        <form asp-action="Duzenle">
+         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Ad" class="control-label"></label>
+                <input asp-for="Ad" class="form-control" />
+                <span asp-validation-for="Ad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Soyad" class="control-label"></label>
+                <input asp-for="Soyad" class="form-control" />
+                <span asp-validation-for="Soyad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DogumTarihi" class="control-label"></label>
+                <input asp-for="DogumTarihi" class="form-control" />
+                <span asp-validation-for="DogumTarihi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cinsiyet" class="control-label"></label>
+                @foreach (Cinsiyet cinsiyet in Enum.GetValues(typeof(Cinsiyet)))
+                {
+                    if(Model.Cinsiyet == cinsiyet)
+                    {
+                        <input asp-for="Cinsiyet" type="radio" checked value="@cinsiyet"/>
+                    }
+                    else
+                    {
+                        <input asp-for="Cinsiyet" type="radio" value="@cinsiyet"/>
+                    }
+                    <span>@cinsiyet</span>
+                }
+                <span asp-validation-for="Cinsiyet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adres" class="control-label"></label>
+                <input asp-for="Adres" class="form-control" />
+                <span asp-validation-for="Adres" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefon" class="control-label"></label>
+                <input asp-for="Telefon" class="form-control" />
+                <span asp-validation-for="Telefon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mail" class="control-label"></label>
+                <input asp-for="Mail" class="form-control" />
+                <span asp-validation-for="Mail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Listeye Geri Dön</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

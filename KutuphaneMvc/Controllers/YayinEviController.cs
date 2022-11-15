@@ -31,7 +31,7 @@ namespace KutuphaneMvc.Controllers
         {
             if (!ModelState.IsValid) return View(yayinEvi);
             if (!_yayinEviRepository.Update(yayinEvi)) return View(yayinEvi);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
 
         }
 
@@ -45,7 +45,7 @@ namespace KutuphaneMvc.Controllers
         {
             if (!ModelState.IsValid) return View(yayinEvi);
             if (!_yayinEviRepository.Insert(yayinEvi)) return View(yayinEvi);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Sil(Guid id)
@@ -53,7 +53,7 @@ namespace KutuphaneMvc.Controllers
             var yayinEviBul = _yayinEviRepository.GetById(id);
             if (yayinEviBul == null) return NotFound();
             _yayinEviRepository.Delete(id);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Detaylar(Guid id)

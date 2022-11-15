@@ -18,7 +18,7 @@ namespace KutuphaneMvc.Classes
         [Range(1, byte.MaxValue)]
         public int BasimSayisi { get; set; }
         [Display(Name = "Sayfa Sayısı")]
-        [Range(1, byte.MaxValue)]
+        [Range(1, Int16.MaxValue)]
         public int SayfaSayisi { get; set; }
 
         public virtual List<Yazar>? Yazarlar { get; set; }

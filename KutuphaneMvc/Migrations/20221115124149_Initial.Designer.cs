@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KutuphaneMvc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221114194911_Initial")]
+    [Migration("20221115124149_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

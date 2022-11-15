@@ -31,14 +31,14 @@ namespace KutuphaneMvc.Controllers
         {
             if (!ModelState.IsValid) return View(tur);
             if (!_turRepository.Update(tur)) return View(tur);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
 
         }
 
         public IActionResult Sil(Guid id)
         {
             _turRepository.Delete(id);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Ekle()
@@ -51,7 +51,7 @@ namespace KutuphaneMvc.Controllers
         {
             if (!ModelState.IsValid) return View(tur);
             if (!_turRepository.Insert(tur)) return View(tur);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
 
         }
 

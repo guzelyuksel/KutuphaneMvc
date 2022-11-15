@@ -1,6 +1,4 @@
-using Bogus;
 using KutuphaneMvc.DataAccess;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 

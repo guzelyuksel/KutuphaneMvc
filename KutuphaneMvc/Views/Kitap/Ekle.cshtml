@@ -1,4 +1,4 @@
-﻿@model KutuphaneMvc.Classes.Kitap
+﻿@model KitapViewModel
 
 @{
     ViewData["Title"] = "Yeni Kitap Ekle";
@@ -12,34 +12,37 @@
         <form asp-action="Ekle">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Isbn" class="control-label"></label>
-                <input asp-for="Isbn" class="form-control" />
-                <span asp-validation-for="Isbn" class="text-danger"></span>
+                <label asp-for="Kitap.Isbn" class="control-label"></label>
+                <input asp-for="Kitap.Isbn" class="form-control" />
+                <span asp-validation-for="Kitap.Isbn" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Ad" class="control-label"></label>
-                <input asp-for="Ad" class="form-control" />
-                <span asp-validation-for="Ad" class="text-danger"></span>
+                <label asp-for="Kitap.Ad" class="control-label"></label>
+                <input asp-for="Kitap.Ad" class="form-control" />
+                <span asp-validation-for="Kitap.Ad" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="BasimYili" class="control-label"></label>
-                <input asp-for="BasimYili" class="form-control" />
-                <span asp-validation-for="BasimYili" class="text-danger"></span>
+                <label asp-for="Kitap.BasimYili" class="control-label"></label>
+                <input asp-for="Kitap.BasimYili" class="form-control" />
+                <span asp-validation-for="Kitap.BasimYili" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="BasimSayisi" class="control-label"></label>
-                <input asp-for="BasimSayisi" class="form-control" />
-                <span asp-validation-for="BasimSayisi" class="text-danger"></span>
+                <label asp-for="Kitap.BasimSayisi" class="control-label"></label>
+                <input asp-for="Kitap.BasimSayisi" class="form-control" />
+                <span asp-validation-for="Kitap.BasimSayisi" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SayfaSayisi" class="control-label"></label>
-                <input asp-for="SayfaSayisi" class="form-control" />
-                <span asp-validation-for="SayfaSayisi" class="text-danger"></span>
+                <label asp-for="Kitap.SayfaSayisi" class="control-label"></label>
+                <input asp-for="Kitap.SayfaSayisi" class="form-control" />
+                <span asp-validation-for="Kitap.SayfaSayisi" class="text-danger"></span>
             </div>
             <div class="form-group">
+
+            </div>
+            @*<div class="form-group">
                 <label asp-for="YayinEviId" class="control-label"></label>
                 <select asp-for="YayinEviId" class ="form-control" asp-items="ViewBag.YayinEviId"></select>
-            </div>
+            </div>*@
             <div class="form-group">
                 <input type="submit" value="Ekle" class="btn btn-primary" />
             </div>

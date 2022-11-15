@@ -1,6 +1,5 @@
 ﻿using KutuphaneMvc.DataAccess;
 using KutuphaneMvc.Models;
-using KutuphaneMvc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -25,7 +24,7 @@ namespace KutuphaneMvc.Controllers
             var toplamYayinEvi = _dbContext.YayinEvi.Count();
             var toplamTur = _dbContext.Tur.Count();
 
-            var toplamBilgiVM = new ToplamBilgiVM(toplamKitap, toplamYazar, toplamYayinEvi, toplamTur);
+            var toplamBilgiVM = new ToplamBilgiViewModel(toplamKitap, toplamYazar, toplamYayinEvi, toplamTur);
 
             return View(toplamBilgiVM);
         }

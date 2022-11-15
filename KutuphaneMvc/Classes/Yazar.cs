@@ -13,6 +13,7 @@ namespace KutuphaneMvc.Classes
         public string AdSoyad => $"{Ad} {Soyad}";
         [DisplayFormat(DataFormatString = "{0:D}")]
         [Display(Name = "Doğum Tarihi")]
+        [DataType(DataType.Date)]
         public DateTime DogumTarihi { get; set; }
         public Cinsiyet Cinsiyet { get; set; }
         [MaxLength(100)]

@@ -1,5 +1,6 @@
 ﻿using KutuphaneMvc.Classes;
 using KutuphaneMvc.DataAccess;
+using KutuphaneMvc.Models;
 
 namespace KutuphaneMvc.Repositories
 {
@@ -23,6 +24,19 @@ namespace KutuphaneMvc.Repositories
                 var kitapBul = GetById(kitap.Isbn);
                 if (kitapBul != null) return false;
                 _dbContext.Kitap.Add(kitap);
+                return _dbContext.SaveChanges() > 0;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool Insert(KitapViewModel kitapVM)
+        {
+            try
+            {
+
                 return _dbContext.SaveChanges() > 0;
             }
             catch

@@ -20,7 +20,7 @@ namespace KutuphaneMvc.Repositories
         {
             try
             {
-                if (_context.Tur.Any(x => x.Ad == tur.Ad))
+                if (_context.Tur.Any(x => x.Ad.ToLower() == tur.Ad.ToLower()))
                     return false;
                 _context.Tur.Add(tur);
                 return _context.SaveChanges() > 0;
