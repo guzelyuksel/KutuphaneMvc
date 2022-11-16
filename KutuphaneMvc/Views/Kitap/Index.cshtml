@@ -4,10 +4,10 @@
     ViewData["Title"] = "Kitaplar";
 }
 
-<h1>Kitap Listesi</h1>
+<h1 class="text-center text-uppercase">Kitap Listesi</h1>
 
-<p>
-    <a asp-action="Ekle">Yeni Kitap Ekle</a>
+<p class="text-center">
+    <a class="btn btn-light btn-outline-primary" asp-action="Ekle">Yeni Kitap Ekle</a>
 </p>
 <table class="table table-striped table-hover">
     <thead>
@@ -52,7 +52,7 @@
                 <td class="text-end">
                     <a class="btn btn-primary" asp-action="Duzenle" asp-route-id="@item.Isbn">Düzenle</a>
                     <a class="btn btn-info" asp-action="Detaylar" asp-route-id="@item.Isbn">Detaylar</a>
-                    <a class="btn btn-danger" asp-action="Sil" asp-route-isbn="@item.Isbn">Sil</a>
+                    <a class="btn btn-danger" asp-action="Sil" asp-route-id="@item.Isbn">Sil</a>
                 </td>
             </tr>
         }

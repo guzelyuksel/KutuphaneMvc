@@ -30,7 +30,20 @@ namespace KutuphaneMvc.Repositories
                 return false;
             }
         }
-
+        public bool Insert(Kitap kitap, object Turler, object Yazarlar, object YayinEvi)
+        {
+            try
+            {
+                var kitapBul = GetById(kitap.Isbn);
+                if (kitapBul != null) return false;
+                _dbContext.Kitap.Add(kitap);
+                return _dbContext.SaveChanges() > 0;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         //public bool Insert(Kitap kitap, Guid[] turGuids, Guid[] yazarGuids, Guid yayinEviGuid)
         //{
         //    try

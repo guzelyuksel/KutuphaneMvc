@@ -8,7 +8,6 @@ builder.Services.AddSqlServer<ApplicationDbContext>(builder.Configuration.GetCon
 var app = builder.Build();
 SeedData.Seed(app);
 
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

@@ -4,10 +4,10 @@
     ViewData["Title"] = "Yayın Evleri";
 }
 
-<h1>Yayın Evi Listesi</h1>
+<h1 class="text-center text-uppercase">Yayın Evi Listesi</h1>
 
-<p>
-    <a asp-action="Ekle">Yeni Yayın Evi Ekle</a>
+<p class="text-center">
+    <a class="btn btn-light btn-outline-primary" asp-action="Ekle">Yeni Yayın Evi Ekle</a>
 </p>
 <table class="table table-striped table-hover">
     <thead>
@@ -26,6 +26,12 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Mail)
+            </th>
+            <th>
+                Toplam Yazar Sayısı
+            </th>
+            <th>
+                Toplam Kitap Sayısı
             </th>
             <th class="text-end">İşlemler</th>
         </tr>
@@ -48,6 +54,32 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Mail)
+                </td>
+                <td>
+                    @{
+                        var toplamYazar = item.Yazarlar?.Count();
+                        if(toplamYazar == 0)
+                        {
+                            <p>Yazar yok</p>
+                        }
+                        else
+                        {
+                            <p>@toplamYazar adet yazar</p>
+                        }
+                    }
+                </td>
+                <td>
+                    @{
+                        var toplamKitap = item.Kitaplar?.Count();
+                        if(toplamKitap == 0)
+                        {
+                            <p>Kitap yok</p>
+                        }
+                        else
+                        {
+                            <p>@toplamKitap adet kitap</p>
+                        }
+                    }
                 </td>
                 <td class="text-end">
                     <a class="btn btn-primary" asp-action="Duzenle" asp-route-id="@item.Id">Düzenle</a>
