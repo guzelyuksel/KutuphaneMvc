@@ -30,12 +30,29 @@ namespace KutuphaneMvc.Repositories
                 return false;
             }
         }
-        public bool Insert(Kitap kitap, object Turler, object Yazarlar, object YayinEvi)
+        public bool Insert(Kitap kitap, List<Guid>? Turler, List<Guid>? Yazarlar, Guid? YayinEvi)
         {
             try
             {
                 var kitapBul = GetById(kitap.Isbn);
-                if (kitapBul != null) return false;
+                if (kitapBul == null)
+                {
+                    foreach (var tur in Turler)
+                    {
+                        var turBul = _dbContext.Tur.Find(tur);
+                        kitap.Turler.Add(turBul);
+                    }
+                    foreach (var yazar in Yazarlar)
+                    {
+                        var yazarBul = _dbContext.Yazar.Find(yazar);
+                        kitap.Yazarlar.Add(yazarBul);
+                    }
+                    kitap.YayinEviId = YayinEvi;
+                }
+                else
+                {
+                    return false;
+                }
                 _dbContext.Kitap.Add(kitap);
                 return _dbContext.SaveChanges() > 0;
             }
@@ -71,11 +88,26 @@ namespace KutuphaneMvc.Repositories
         //    }
         //}
 
-        public bool Update(Kitap kitap)
+        public bool Update(Kitap kitap, List<Guid>? Turler, List<Guid>? Yazarlar, Guid? YayinEvi)
         {
             try
             {
-                _dbContext.Kitap.Update(kitap);
+                var kitapBul = _dbContext.Kitap.Find(kitap.Isbn);
+                _dbContext.Remove(kitapBul);
+                _dbContext.SaveChanges();
+                foreach (var tur in Turler)
+                {
+                    var turBul = _dbContext.Tur.Find(tur);
+                    kitap.Turler.Add(turBul);
+                }
+                foreach (var yazar in Yazarlar)
+                {
+                    var yazarBul = _dbContext.Yazar.Find(yazar);
+                    kitap.Yazarlar.Add(yazarBul);
+                }
+                kitap.YayinEviId = YayinEvi;
+
+                _dbContext.Kitap.Add(kitap);
                 return _dbContext.SaveChanges() > 0;
             }
             catch

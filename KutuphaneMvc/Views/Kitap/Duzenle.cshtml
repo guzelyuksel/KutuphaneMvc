@@ -2,15 +2,15 @@
 @model KitapEkleViewModel
 
 @{
-    ViewData["Title"] = "Yeni Kitap Ekle";
+    ViewData["Title"] = "Kitap Düzenle";
 }
 
-<h1 class="text-center text-uppercase">Yeni Kitap Ekle</h1>
+<h1 class="text-center text-uppercase">Kitap Düzenle</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Ekle">
+        <form asp-action="Duzenle">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Kitap.Isbn" class="form-label"></label>
@@ -39,12 +39,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Yazarlar" class="form-label"></label>
-                @Html.DropDownListFor(m => m.Yazarlar, new MultiSelectList(Model.YazarlarDb, "Id", "AdSoyad"), new { @class = "form-control", multiple = "multiple" })
+                @Html.ListBoxFor(m => m.Yazarlar, new MultiSelectList(Model.YazarlarDb, "Id", "AdSoyad"), new { @class = "form-control", multiple = "multiple" })
                 <span asp-validation-for="Yazarlar" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Turler" class="form-label"></label>
-                @Html.DropDownListFor(m => m.Turler, new MultiSelectList(Model.TurlerDb, "Id", "Ad"), new { @class = "form-control", multiple = "multiple" })
+                @Html.ListBoxFor(m => m.Turler, new MultiSelectList(Model.TurlerDb, "Id", "Ad"), new { @class = "form-control", multiple = "multiple" })
                 <span asp-validation-for="@Model.Turler" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -53,7 +53,7 @@
                 <span asp-validation-for="@Model.YayinEvi" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Ekle" class="btn btn-primary" />
+                <input type="submit" value="Güncelle" class="btn btn-primary" />
             </div>
         </form>
     </div>

@@ -4,8 +4,6 @@ using KutuphaneMvc.Models;
 using KutuphaneMvc.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
 
 namespace KutuphaneMvc.Controllers
 {
@@ -62,10 +60,13 @@ namespace KutuphaneMvc.Controllers
             //        Mail = x.Mail
             //    }).ToList()
             //};
-            ViewBag.TurId = _dbContext.Tur.ToList();
-            ViewBag.YazarId = _dbContext.Yazar.ToList();
-            ViewBag.YayinEviId = _dbContext.YayinEvi.ToList();
-            return View(Tuple.Create(new Kitap(), new List<Tur>(), new List<Yazar>(), new YayinEvi()));
+            var kitapEkleVm = new KitapEkleViewModel()
+            {
+                TurlerDb = _dbContext.Tur.ToList(),
+                YazarlarDb = _dbContext.Yazar.ToList(),
+                YayinEvleriDb = _dbContext.YayinEvi.ToList()
+            };
+            return View(kitapEkleVm);
         }
 
         //[HttpPost]
@@ -113,32 +114,47 @@ namespace KutuphaneMvc.Controllers
         //}
 
         [HttpPost]
-        public IActionResult Ekle([Bind(Prefix = "Item1")] Kitap kitap, [Bind(Prefix = "Item2")] List<Tur> turler,
-            [Bind(Prefix = "Item3")] List<Yazar> yazarlar, [Bind(Prefix = "Item4")] YayinEvi yayinEvi)
+        public IActionResult Ekle(KitapEkleViewModel kitapEkleVm)
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.TurId = new MultiSelectList(_dbContext.Tur.ToList(), "Id", "Ad", turler);
-                ViewBag.YazarId = new MultiSelectList(_dbContext.Yazar.ToList(), "Id", "AdSoyad", yazarlar);
-                ViewBag.YayinEviId = new SelectList(_dbContext.YayinEvi.ToList(), "Id", "Ad", yayinEvi);
-                return View(kitap);
+                if (kitapEkleVm.TurlerDb == null)
+                {
+                    kitapEkleVm.TurlerDb = _dbContext.Tur.ToList();
+                    kitapEkleVm.YazarlarDb = _dbContext.Yazar.ToList();
+                    kitapEkleVm.YayinEvleriDb = _dbContext.YayinEvi.ToList();
+                }
+                return View(kitapEkleVm);
             }
-            if (!_kitapRepository.Insert(kitap)) return View(kitap);
+            if (!_kitapRepository.Insert(kitapEkleVm.Kitap, kitapEkleVm.Turler, kitapEkleVm.Yazarlar, kitapEkleVm.YayinEvi)) return View(kitapEkleVm);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Guncelle(string id)
+        public IActionResult Duzenle(string id)
         {
             var kitap = _kitapRepository.GetById(id);
             if (kitap == null) return NotFound();
-            return View(kitap);
+            var yazarlar = _dbContext.Yazar;
+            var turler = _dbContext.Tur;
+            var yayinEvleri = _dbContext.YayinEvi;
+            KitapEkleViewModel kitapEkleVm = new KitapEkleViewModel()
+            {
+                Kitap = kitap,
+                YayinEvi = kitap.YayinEviId,
+                Turler = kitap.Turler.Select(x => x.Id).ToList(),
+                Yazarlar = kitap.Yazarlar.Select(x => x.Id).ToList(),
+                TurlerDb = turler.ToList(),
+                YazarlarDb = yazarlar.ToList(),
+                YayinEvleriDb = yayinEvleri.ToList()
+            };
+            return View(kitapEkleVm);
         }
 
         [HttpPost]
-        public IActionResult Guncelle(Kitap kitap)
+        public IActionResult Duzenle(KitapEkleViewModel kitapEkleVm)
         {
-            if (!ModelState.IsValid) return View(kitap);
-            if (!_kitapRepository.Update(kitap)) return View(kitap);
+            if (!ModelState.IsValid) return View(kitapEkleVm);
+            if (!_kitapRepository.Update(kitapEkleVm.Kitap, kitapEkleVm.Turler, kitapEkleVm.Yazarlar, kitapEkleVm.YayinEvi)) return View(kitapEkleVm);
             return RedirectToAction(nameof(Index));
         }
 
@@ -147,5 +163,6 @@ namespace KutuphaneMvc.Controllers
             if (!_kitapRepository.Delete(id)) return NotFound();
             return RedirectToAction(nameof(Index));
         }
+
     }
 }
